@@ -76,7 +76,7 @@ node("${params.NODE_LABEL}") {
                 //    '''
                 sh '''
                     eval $SST_CORE_MODULES
-                    cd sst-core
+                    cd sst-elements
                     env PATH=$PATH ./autogen.sh
                     mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
                     '''
