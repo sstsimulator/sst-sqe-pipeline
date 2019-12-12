@@ -66,13 +66,19 @@ node("${params.NODE_LABEL}") {
                 //println "Shell Output:\n" +
                 //"- status: ${output.status}\n" +
                 //"- stdout: ${output.stdout}\n"
+                //sh '''
+                //    cd sst-elements
+                //    ./autogen.sh
+                //    mkdir -p $INSTALL_DIR
+                //    eval $SST_CORE_MODULES
+                //    ./configure --prefix=$INSTALL_DIR
+                //    grep 'INSTALL = ' Makefile
+                //    '''
                 sh '''
-                    cd sst-elements
-                    ./autogen.sh
-                    mkdir -p $INSTALL_DIR
                     eval $SST_CORE_MODULES
-                    ./configure --prefix=$INSTALL_DIR
-                    grep 'INSTALL = ' Makefile
+                    cd sst-core
+                    env PATH=$PATH ./autogen.sh
+                    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
                     '''
             }
         }
