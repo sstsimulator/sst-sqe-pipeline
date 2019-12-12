@@ -12,11 +12,11 @@ properties([
         booleanParam(defaultValue: true, description: 'Run Tests?', name: 'RUN_TESTS'),
         booleanParam(defaultValue: true, description: 'Run Static Code Analysis?', name: 'RUN_ANALYSIS'),
         booleanParam(defaultValue: true, description: 'Deploy Artifacts?', name: 'DEPLOY')]),
-        [$class: 'EnvInjectJobProperty', 
-            info: [loadFilesFromMaster: false, secureGroovyScript: [classpath: [], sandbox: true, script: '']],
-            keepBuildVariables: true, 
-            keepJenkinsSystemVariables: true, 
-            on: true]
+        //[$class: 'EnvInjectJobProperty', 
+        //    info: [loadFilesFromMaster: false, secureGroovyScript: [classpath: [], sandbox: true, script: '']],
+        //    keepBuildVariables: true, 
+        //    keepJenkinsSystemVariables: true, 
+        //    on: true]
 ])
 
 node("${params.NODE_LABEL}") {
