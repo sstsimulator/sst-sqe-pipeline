@@ -1,0 +1,34 @@
+@Library('SPiFI-1.2.1') _
+
+node {
+    stage('Creating sub-jobs') {
+        String[] sstsimulatorRepos = ['sst-core']
+
+        def launcher = new gov.sandia.sems.spifi.JobLauncher(this)
+
+        sstsimulatorRepos.eachWithIndex {repo, i ->
+            launcher.appendJob(label: repo, job_name: "$JOB_NAME" + "-" + repo,
+                                parameters: [
+                                    (string(name:"SST_BASE_JOB_NAME", value:"$JOB_NAME")),
+                                    (string(name:"NODE_LABEL", value:"sstresource&&COERHEL7"))
+                                ]
+                            )
+        }
+
+        launcher.printJobList()
+        println "lost control"
+        
+        launcher.launchInParallel()
+        println "got control back"
+        
+        def summary = launcher.getLastResultSummary()
+        def results_util = new gov.sandia.sems.spifi.ResultsUtility(env: this)
+        
+        println results_util.genResultSummaryTable(format: "ASCII", summary: summary)
+
+        if(summary.NUMJOBS != summary.NUMSUCCESS) {
+            currentBuild.result = 'FAILURE'
+            return
+        }
+    }
+}
