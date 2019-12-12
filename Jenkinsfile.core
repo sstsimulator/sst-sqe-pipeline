@@ -12,11 +12,11 @@ properties([
         booleanParam(defaultValue: true, description: 'Run Tests?', name: 'RUN_TESTS'),
         booleanParam(defaultValue: true, description: 'Run Static Code Analysis?', name: 'RUN_ANALYSIS'),
         booleanParam(defaultValue: true, description: 'Deploy Artifacts?', name: 'DEPLOY')]),
-        //[$class: 'EnvInjectJobProperty', 
-        //    info: [loadFilesFromMaster: false, secureGroovyScript: [classpath: [], sandbox: true, script: '']],
-        //    keepBuildVariables: true, 
-        //    keepJenkinsSystemVariables: true, 
-        //    on: true]
+        [$class: 'EnvInjectJobProperty', 
+            info: [loadFilesFromMaster: false, secureGroovyScript: [classpath: [], sandbox: true, script: '']],
+            keepBuildVariables: true, 
+            keepJenkinsSystemVariables: true, 
+            on: true]
 ])
 
 node("${params.NODE_LABEL}") {
@@ -64,24 +64,22 @@ node("${params.NODE_LABEL}") {
                 //"- status: ${output.status}\n" +
                 //"- stdout: ${output.stdout}\n"
                 sh '''
-                    cd sst-core
-                    ./autogen.sh
-                    mkdir -p $INSTALL_DIR
                     eval $SST_CORE_MODULES
-                    ./configure --prefix=$INSTALL_DIR
-                    grep 'INSTALL = ' Makefile
+                    cd sst-core
+                    env PATH=$PATH ./autogen.sh
+                    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
                     '''
             }
         }
-        stage('Build') {
-            if (params.BUILD) {
-                sh '''
-                    eval $SST_CORE_MODULES
-                    cd sst-core
-                    make -j4
-                    '''
-            }
-        }
+        //stage('Build') {
+        //    if (params.BUILD) {
+        //        sh '''
+        //            eval $SST_CORE_MODULES
+        //            cd sst-core
+        //            make -j4
+        //            '''
+        //    }
+        //}
         stage('Install') {
             if (params.INSTALL) {
                 //TODO: use SPiFI shell command
