@@ -3,12 +3,12 @@
 properties([
     [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], 
     parameters([
-        //booleanParam(defaultValue: true, description: 'Download artifacts?', name: 'DOWNLOAD_ARTIFACTS'),
-        //booleanParam(defaultValue: true, description: 'Clean src dir?', name: 'CLEAN'),
-        //booleanParam(defaultValue: true, description: 'Configure?', name: 'CONFIGURE'),
-        //booleanParam(defaultValue: true, description: 'Build?', name: 'BUILD'),
-        //booleanParam(defaultValue: true, description: 'Install?', name: 'INSTALL'),
-        //booleanParam(defaultValue: true, description: 'Upload artifacts?', name: 'UPLOAD_ARTIFACTS'),
+        booleanParam(defaultValue: true, description: 'Download artifacts?', name: 'DOWNLOAD_ARTIFACTS'),
+        booleanParam(defaultValue: true, description: 'Clean src dir?', name: 'CLEAN'),
+        booleanParam(defaultValue: true, description: 'Configure?', name: 'CONFIGURE'),
+        booleanParam(defaultValue: true, description: 'Build?', name: 'BUILD'),
+        booleanParam(defaultValue: true, description: 'Install?', name: 'INSTALL'),
+        booleanParam(defaultValue: true, description: 'Upload artifacts?', name: 'UPLOAD_ARTIFACTS'),
         booleanParam(defaultValue: true, description: 'Run Tests?', name: 'RUN_TESTS'),
         booleanParam(defaultValue: true, description: 'Run Static Code Analysis?', name: 'RUN_ANALYSIS'),
         booleanParam(defaultValue: true, description: 'Deploy Artifacts?', name: 'DEPLOY')]),
