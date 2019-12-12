@@ -10,7 +10,7 @@ node {
             launcher.appendJob(label: repo, job_name: "$JOB_NAME" + "-" + repo,
                                 parameters: [
                                     (string(name:"SST_BASE_JOB_NAME", value:"$JOB_NAME")),
-                                    (string(name:"NODE_LABEL", value:"sstresource&&COERHEL7"))
+                                    (string(name:"NODE_LABEL", value:"sstresource&&baserhel8"))
                                 ]
                             )
         }
