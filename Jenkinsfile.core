@@ -52,22 +52,23 @@ node("${params.NODE_LABEL}") {
         }
         stage('Configure') {
             //if (params.CONFIGURE) {
-                def shell = new gov.sandia.sems.spifi.Shell()
-                def output = shell.execute(env: this,
-                                            command: "eval $SST_CORE_MODULES; " +
-                                                    "cd sst-core; ./autogen.sh; " +
-                                                    "mkdir -p $INSTALL_DIR; " +
-                                                    "./configure --prefix=$INSTALL_DIR",
-                                            verbose: true)
-                println "Shell Output:\n" +
-                "- status: ${output.status}\n" +
-                "- stdout: ${output.stdout}\n"
-                //sh '''
-                //    eval $SST_CORE_MODULES
-                //    cd sst-core
-                //    env PATH=$PATH ./autogen.sh
-                //    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
-                //    '''
+                //TODO: Ask Will about missing Shell Output: core/110
+                //def shell = new gov.sandia.sems.spifi.Shell()
+                //def output = shell.execute(env: this,
+                //                            command: "eval $SST_CORE_MODULES; " +
+                //                                    "cd sst-core; ./autogen.sh; " +
+                //                                    "mkdir -p $INSTALL_DIR; " +
+                //                                    "./configure --prefix=$INSTALL_DIR",
+                //                            verbose: true)
+                //println "Shell Output:\n" +
+                //"- status: ${output.status}\n" +
+                //"- stdout: ${output.stdout}\n"
+                sh '''
+                    eval $SST_CORE_MODULES
+                    cd sst-core
+                    env PATH=$PATH ./autogen.sh
+                    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
+                    '''
             //}
         }
         stage('Build') {

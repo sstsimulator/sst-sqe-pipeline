@@ -55,22 +55,22 @@ node("${params.NODE_LABEL}") {
         }
         stage('Configure') {
             //if (params.CONFIGURE) {
-                def shell = new gov.sandia.sems.spifi.Shell()
-                def output = shell.execute(env: this,
-                                            command: "eval $SST_CORE_MODULES; " +
-                                                    "cd sst-elements; ./autogen.sh; " +
-                                                    "mkdir -p $INSTALL_DIR; " +
-                                                    "./configure --prefix=$INSTALL_DIR",
-                                            verbose: true)
-                println "Shell Output:\n" +
-                "- status: ${output.status}\n" +
-                "- stdout: ${output.stdout}\n"
-                //sh '''
-                //    eval $SST_CORE_MODULES
-                //    cd sst-elements
-                //    env PATH=$PATH ./autogen.sh
-                //    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
-                //    '''
+                //def shell = new gov.sandia.sems.spifi.Shell()
+                //def output = shell.execute(env: this,
+                //                            command: "eval $SST_CORE_MODULES; " +
+                //                                    "cd sst-elements; ./autogen.sh; " +
+                //                                    "mkdir -p $INSTALL_DIR; " +
+                //                                    "./configure --prefix=$INSTALL_DIR",
+                //                            verbose: true)
+                //println "Shell Output:\n" +
+                //"- status: ${output.status}\n" +
+                //"- stdout: ${output.stdout}\n"
+                sh '''
+                    eval $SST_CORE_MODULES
+                    cd sst-elements
+                    env PATH=$PATH ./autogen.sh
+                    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
+                    '''
             //}
         }
         stage('Build') {
