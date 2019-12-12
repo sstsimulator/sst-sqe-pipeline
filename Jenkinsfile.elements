@@ -55,31 +55,22 @@ node("${params.NODE_LABEL}") {
         }
         stage('Configure') {
             //if (params.CONFIGURE) {
-                // TODO: Figure out why running through SPiFI shell cmd breaks install step. The install command is 'true'...
-                //def shell = new gov.sandia.sems.spifi.Shell()
-                //def output = shell.execute(env: this,
-                //                            command: "eval $SST_CORE_MODULES; " +
-                //                                    "cd sst-elements; env PATH=$PATH ./autogen.sh; " +
-                //                                    "mkdir -p $INSTALL_DIR; " +
-                //                                    "./configure --prefix=$INSTALL_DIR",
-                //                            verbose: true)
-                //println "Shell Output:\n" +
-                //"- status: ${output.status}\n" +
-                //"- stdout: ${output.stdout}\n"
+                def shell = new gov.sandia.sems.spifi.Shell()
+                def output = shell.execute(env: this,
+                                            command: "eval $SST_CORE_MODULES; " +
+                                                    "cd sst-elements; ./autogen.sh; " +
+                                                    "mkdir -p $INSTALL_DIR; " +
+                                                    "./configure --prefix=$INSTALL_DIR",
+                                            verbose: true)
+                println "Shell Output:\n" +
+                "- status: ${output.status}\n" +
+                "- stdout: ${output.stdout}\n"
                 //sh '''
-                //    cd sst-elements
-                //    ./autogen.sh
-                //    mkdir -p $INSTALL_DIR
                 //    eval $SST_CORE_MODULES
-                //    ./configure --prefix=$INSTALL_DIR
-                //    grep 'INSTALL = ' Makefile
+                //    cd sst-elements
+                //    env PATH=$PATH ./autogen.sh
+                //    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
                 //    '''
-                sh '''
-                    eval $SST_CORE_MODULES
-                    cd sst-elements
-                    env PATH=$PATH ./autogen.sh
-                    mkdir -p $INSTALL_DIR; ./configure --prefix=$INSTALL_DIR
-                    '''
             //}
         }
         stage('Build') {
