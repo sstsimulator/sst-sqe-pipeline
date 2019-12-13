@@ -10,7 +10,7 @@ node("${params.P_NODE_LABEL}") {
     withEnv(["INSTALL_DIR=$WORKSPACE/sst-core-install", 
             "SST_CORE_MODULES=module load mpi/openmpi-2.1.3 glpk/glpk-4.54 metis/metis-5.1.0 &> SST_CORE_MODULES.out"]) {
         stage('Cloning') {
-            sh 'echo "----"; env | grep "P_"; echo "----"'
+            sh 'echo "----"; env | grep "P_" || true; echo "----"'
             if (params.P_CLEAN) {
                 sh 'rm -rf sst-core; rm -rf sst-core-install'
             }
