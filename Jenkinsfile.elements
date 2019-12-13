@@ -1,25 +1,10 @@
 @Library('SPiFI-1.2.1') _
 
 properties([
-    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], 
-    parameters([
-        booleanParam(defaultValue: true, description: 'Download artifacts?', name: 'P_DOWNLOAD_ARTIFACTS'),
-        booleanParam(defaultValue: false, description: 'Clean src dir?', name: 'P_CLEAN'),
-        booleanParam(defaultValue: true, description: 'Configure?', name: 'P_CONFIGURE'),
-        booleanParam(defaultValue: true, description: 'Build?', name: 'P_BUILD'),
-        booleanParam(defaultValue: true, description: 'Install?', name: 'P_INSTALL'),
-        booleanParam(defaultValue: true, description: 'Upload artifacts?', name: 'P_UPLOAD_ARTIFACTS'),
-        booleanParam(defaultValue: true, description: 'Run Tests?', name: 'P_RUN_TESTS'),
-        booleanParam(defaultValue: true, description: 'Run Static Code Analysis?', name: 'P_RUN_ANALYSIS'),
-        booleanParam(defaultValue: true, description: 'Deploy Artifacts?', name: 'P_DEPLOY')]),
-        //[$class: 'EnvInjectJobProperty', 
-        //    info: [loadFilesFromMaster: false, secureGroovyScript: [classpath: [], sandbox: true, script: '']],
-        //    keepBuildVariables: true, 
-        //    keepJenkinsSystemVariables: true, 
-        //    on: true]
+    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false]
 ])
 
-node("${params.NODE_LABEL}") {
+node("${params.P_NODE_LABEL}") {
     //TODO: This needs to accept parameters and setup/load accordingly
     //TODO: Use a package manager instead of modules?
     withEnv(["INSTALL_DIR=$WORKSPACE/sst-elements-install",

@@ -1,8 +1,23 @@
 @Library('SPiFI-1.2.1') _
 
+properties([
+    parameters([
+        booleanParam(defaultValue: true, description: 'Download artifacts?', name: 'P_DOWNLOAD_ARTIFACTS'),
+        booleanParam(defaultValue: false, description: 'Clean src dir?', name: 'P_CLEAN'),
+        booleanParam(defaultValue: true, description: 'Configure?', name: 'P_CONFIGURE'),
+        booleanParam(defaultValue: true, description: 'Build?', name: 'P_BUILD'),
+        booleanParam(defaultValue: true, description: 'Install?', name: 'P_INSTALL'),
+        booleanParam(defaultValue: true, description: 'Upload artifacts?', name: 'P_UPLOAD_ARTIFACTS'),
+        booleanParam(defaultValue: true, description: 'Run Tests?', name: 'P_RUN_TESTS'),
+        booleanParam(defaultValue: true, description: 'Run Static Code Analysis?', name: 'P_RUN_ANALYSIS'),
+        booleanParam(defaultValue: true, description: 'Deploy Artifacts?', name: 'P_DEPLOY'),
+        string(defaultValue: 'sstresource&&baserhel8', description: 'Select machine', name: 'P_NODE_LABEL')])
+])
 node {
     stage('Creating sub-jobs') {
         String[] sstsimulatorRepos = ['sst-core']
+        //TODO: String[] nodeLabels = ['sstresource&&baserhel8', 'sstresource&&COERHEL7']
+        //TODO: nodeLabels.each { launcher.appendJob ... }
 
         def launcher = new gov.sandia.sems.spifi.JobLauncher(this)
 
@@ -10,7 +25,16 @@ node {
             launcher.appendJob(label: repo, job_name: "$JOB_NAME" + "-" + repo,
                                 parameters: [
                                     (string(name:"SST_BASE_JOB_NAME", value:"$JOB_NAME")),
-                                    (string(name:"NODE_LABEL", value:"sstresource&&baserhel8"))
+                                    (string(name:"P_NODE_LABEL", value:"$P_NODE_LABEL")),
+                                    booleanParam(name:"P_DOWNLOAD_ARTIFACTS", value: "${params.P_DOWNLOAD_ARTIFACTS}"),
+                                    booleanParam(name:"P_CLEAN", value: "${params.P_CLEAN}"),
+                                    booleanParam(name:"P_CONFIGURE", value: "${params.P_CONFIGURE}"),
+                                    booleanParam(name:"P_BUILD", value: "${params.P_BUILD}"),
+                                    booleanParam(name:"P_INSTALL", value: "${params.P_INSTALL}"),
+                                    booleanParam(name:"P_UPLOAD_ARTIFACTS", value: "${params.P_UPLOAD_ARTIFACTS}"),
+                                    booleanParam(name:"P_RUN_TESTS", value: "${params.P_RUN_TESTS}"),
+                                    booleanParam(name:"P_RUN_ANALYSIS", value: "${params.P_RUN_ANALYSIS}"),
+                                    booleanParam(name:"P_DEPLOY", value: "${params.P_DEPLOY}")
                                 ]
                             )
         }
