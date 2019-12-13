@@ -21,6 +21,8 @@ node {
 
         def launcher = new gov.sandia.sems.spifi.JobLauncher(this)
 
+        sh 'echo "----"; env | grep "P_"; echo "----"'
+
         sstsimulatorRepos.eachWithIndex {repo, i ->
             launcher.appendJob(label: repo, job_name: "$JOB_NAME" + "-" + repo,
                                 parameters: [

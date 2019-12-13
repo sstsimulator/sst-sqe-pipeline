@@ -12,6 +12,7 @@ node("${params.P_NODE_LABEL}") {
             "SST_CORE_INSTALL=${params.SST_CORE_INSTALL}",
             "PATH=$PATH:${params.SST_CORE_INSTALL}/bin"]) {
         stage('Cloning') {
+            sh 'echo "----"; env | grep "P_"; echo "----"'
             if (params.P_CLEAN) {
                 sh 'rm -rf sst-elements; rm -rf sst-elements-install'
             }
