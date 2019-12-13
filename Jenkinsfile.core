@@ -107,7 +107,7 @@ node("${params.P_NODE_LABEL}") {
                                     parameters: [
                                                     (string(name:"SST_CORE_INSTALL", value:"$INSTALL_DIR"+"s/34")),
                                                     (string(name:"SST_CORE_MODULES", value:"$SST_CORE_MODULES")),
-                                                    (string(name:"P_NODE_LABEL", value:"$P_NODE_LABEL")),
+                                                    (string(name:"P_NODE_LABEL", value:"${params.P_NODE_LABEL}")),
                                                     booleanParam(name:"P_DOWNLOAD_ARTIFACTS", value: "${params.P_DOWNLOAD_ARTIFACTS}"),
                                                     booleanParam(name:"P_CLEAN", value: "${params.P_CLEAN}"),
                                                     booleanParam(name:"P_CONFIGURE", value: "${params.P_CONFIGURE}"),
