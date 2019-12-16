@@ -1,0 +1,6 @@
+packages:
+  sst-core:
+    compiler: [gcc]
+    providers:
+      mpi: [openmpi, mpich]
+    variants: [+zoltan, +metis, +glpk, +python]
