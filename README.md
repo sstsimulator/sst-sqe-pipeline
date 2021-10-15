@@ -1,3 +1,5 @@
+NOTE: Do not remove this repository without contacting allevin@sandia.gov.  It is an experimental repo for pipeline testing on Jenkins
+
 # sst-sqe-pipeline
 Pipeline code for SST Jenkins Testing
 
